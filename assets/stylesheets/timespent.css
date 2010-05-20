@@ -1,0 +1,23 @@
+.daytime {
+    font-size: 36px;
+    text-align: center;
+}
+.more{
+    color: #00ff00 !important;
+}
+.less{
+    color: #ff0000 !important;
+}
+.warn{
+    color: #0000ff !important;
+}
+.calendar-container{
+	width:70%;
+}
+.dayschedule{
+	width:100%;
+}
+.daylink {
+    text-decoration:none;
+    
+}
