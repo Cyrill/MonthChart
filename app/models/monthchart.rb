@@ -20,16 +20,26 @@ class Monthchart
     return conditions
   end
    
-  def fetch_time_entries_by_user
+  def fetch_time_entries_by_user(curr_user)
+  
     self.users.each do |user_id|
       logs = []
-      if User.current.id == user_id
-        # Users can see their own their time entries
-        logs = time_entries_for_user(user_id)
+      if User.current.admin?
+        if curr_user
+	  if curr_user==user_id
+	    logs = time_entries_for_user(user_id)
+	  end
+	else
+	  if User.current.id == user_id
+	    logs = time_entries_for_user(user_id)
+	  end
+	end
       else
-        # Rest can see nothing
-      end
-      
+        if User.current.id == user_id
+	    logs = time_entries_for_user(user_id)
+	end
+      end 
+    
       unless logs.empty?
         user = User.find_by_id(user_id)
         self.time_entries[user.name] = { :logs => logs }  unless user.nil?

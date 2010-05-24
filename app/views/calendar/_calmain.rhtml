@@ -2,6 +2,7 @@
 <fieldset id="date-range" style="text-align:left"><legend><%= l(:label_date_range) %></legend>
     <%= select_month(@month, :prefix => "month", :discard_type => true) %>
     <%= select_year(@year, :prefix => "year", :discard_type => true) %>
+    <%= select_tag "userhours", options_from_collection_for_select(User.find(:all, :conditions => ['status = ?', User::STATUS_ACTIVE]).sort { |a,b| a.to_s.downcase <=> b.to_s.downcase }, :id, :name, (@userid)?@userid:User.current.id) if User.current.admin?%>
     <%= link_to_remote l(:button_apply), 
                    { 
                      :update => "content",
@@ -10,11 +11,11 @@
 </fieldset>
 <p style="text-align:left">
 <%= link_to_remote ('&#171; ' + (@month==1 ? "#{month_name(12)} #{@year-1}" : "#{month_name(@month-1)}")), 
-                        {:update => "content", :url => { :year => (@month==1 ? @year-1 : @year), :month =>(@month==1 ? 12 : @month-1) }},
+                        {:update => "content", :url => { :year => (@month==1 ? @year-1 : @year), :month =>(@month==1 ? 12 : @month-1) },:with => "Form.serialize('query_form')"},
                         {:href => url_for(:action => 'calendar', :year => (@month==1 ? @year-1 : @year), :month =>(@month==1 ? 12 : @month-1))}
                         %> |
 <%= link_to_remote ((@month==12 ? "#{month_name(1)} #{@year+1}" : "#{month_name(@month+1)}") + ' &#187;'), 
-                        {:update => "content", :url => { :year => (@month==12 ? @year+1 : @year), :month =>(@month==12 ? 1 : @month+1) }},
+                        {:update => "content", :url => { :year => (@month==12 ? @year+1 : @year), :month =>(@month==12 ? 1 : @month+1) },:with => "Form.serialize('query_form')"},
                         {:href => url_for(:action => 'calendar', :year => (@month==12 ? @year+1 : @year), :month =>(@month==12 ? 1 : @month+1))}
                         %>
 </p>

@@ -19,16 +19,22 @@ class CalendarController < ApplicationController
     @month ||= Date.today.month
     @calendar = Redmine::Helpers::Calendar.new(Date.civil(@year, @month, 1), current_language, :month)
     
-    #debugger
+    if params[:userhours]
+     @userid = params[:userhours]
+    end
+    if @userid 
+      @userid = @userid.to_i
+    end
     @timesheet = Monthchart.new({:month=>@month, :year=>@year})
-    @timesheet.fetch_time_entries_by_user
+    @timesheet.fetch_time_entries_by_user(@userid)
      # Sums
- #    debugger
+    
     @total = 0
     @dayhours = {}
     unless @timesheet.sort == :issue
       @timesheet.time_entries.each do |project,logs|
         @total = 0
+	#debugger
         if logs[:logs]
           logs[:logs].each do |log|
             @total += log.hours
@@ -49,7 +55,6 @@ class CalendarController < ApplicationController
         end
       end
     end
-    
     render :layout => false if request.xhr?
   end
   
@@ -66,11 +71,10 @@ class CalendarController < ApplicationController
     @year ||= Date.today.year
     @month ||= Date.today.month
     @day ||= Date.today.day
-    #@calendar = Redmine::Helpers::Calendar.new(Date.civil(@year, @month, 1), current_language, :month)
     
-  #  debugger
+    #debugger
     @timesheet = Monthchart.new({:month=>@month, :year=>@year})
-    @timesheet.fetch_time_entries_by_user
+    @timesheet.fetch_time_entries_by_user(@userid)
      # Sums
  #    debugger
     @total = []
