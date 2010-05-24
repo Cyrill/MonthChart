@@ -16,8 +16,25 @@
 }
 .dayschedule{
 	width:100%;
+	border-collapse:collapse;
 }
 .daylink {
     text-decoration:none;
-    
+    outline: none;
+}
+
+.hour-odd{
+	background-color:#F6F7F8;
+}
+.hour-even{
+	background-color:#FFFFFF;
+}
+.hour-highlight{
+	background-color:#FCFD8D;
+}
+.hour-entry{
+
+}
+.hour-entry :hover{
+	background-color:#FCFD8D;
 }

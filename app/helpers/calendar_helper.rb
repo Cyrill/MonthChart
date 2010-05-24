@@ -1,6 +1,6 @@
 module CalendarHelper
 
-  def renderHours(day,month,value)
+  def renderHours(day,month,value, userid)
     value||=0
     content=''
     style=''
@@ -20,10 +20,11 @@ module CalendarHelper
    # content << "\">"
     if (day.month==month)
       unless (day.wday==0||day.wday==6) && value == 0
-	#content << (link_to value.to_s, {:controller => 'calendar', :action =>'dayschedule', :year=>day.year, :month=>month,:day=>day.day}, {:class =>'daylink '+ style}) 
-        content << "<div class=\"" + style + "\">"
-	content << value.to_s    
-	content << "</div>"
+	content << (link_to value.to_s,{:controller => 'calendar', :action =>'dayschedule', :year=>day.year, :month=>month,:day=>day.day, :user => userid},{:class =>'daylink '+ style} ) 
+        #content << "<div class=\"" + style + "\">"
+	#content << value.to_s    
+	#content << "</div>"
+	#{:method => :post}, 
       end
     end
     content << "</div>"

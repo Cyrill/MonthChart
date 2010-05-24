@@ -1,6 +1,6 @@
 <script type="text/javascript">
-$(document).ready(function(){
-$(".daylink").colorbox({width:"400px", height:"80%", iframe:true});
+jQuery(document).ready(function(){
+jQuery(".daylink").colorbox({width:"600px", height:"80%", iframe:true});
 
 });
 </script>
@@ -15,7 +15,7 @@ while day <= calendar.enddt %>
 <%= "<th>#{day.cweek}</th>" if day.cwday == calendar.first_wday %>
 <td class="<%= day.month==calendar.month ? 'even' : 'odd' %><%= ' today' if Date.today == day %>">
 <p class="day-num"><%= day.day %></p>	
-<%= renderHours(day,calendar.month , @dayhours[day.day]) %>
+<%= renderHours(day,calendar.month , @dayhours[day.day], curr_user) %>
 </td>
 <%= '</tr><tr>' if day.cwday==calendar.last_wday and day!=calendar.enddt %>
 <% day = day + 1

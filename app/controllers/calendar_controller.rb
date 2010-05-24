@@ -71,12 +71,14 @@ class CalendarController < ApplicationController
     @year ||= Date.today.year
     @month ||= Date.today.month
     @day ||= Date.today.day
-    
+    @userid = params[:user]
+    if @userid 
+      @userid = @userid.to_i
+    end
     #debugger
     @timesheet = Monthchart.new({:month=>@month, :year=>@year})
     @timesheet.fetch_time_entries_by_user(@userid)
      # Sums
- #    debugger
     @total = []
  #   @dayhours = 0
     unless @timesheet.sort == :issue
@@ -108,8 +110,7 @@ class CalendarController < ApplicationController
      # end
      
     end
-    
-    render :layout => false if request.xhr?
+    render :partial => "dayschedule" 
   end
   
 end

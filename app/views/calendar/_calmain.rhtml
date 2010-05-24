@@ -26,7 +26,7 @@ Total:&nbsp;&nbsp; <%= @total%>
 
 <%= error_messages_for 'query' %>
 
-<%= render :partial => 'cal', :locals => {:calendar => @calendar} %>
+<%= render :partial => 'cal', :locals => {:calendar => @calendar, :curr_user => @userid} %>
 <p style="text-align:left">
 <span class="less">Менее 8 часов</span><br/>
 <span class="more">От 8 до 10 часов</span><br/>
