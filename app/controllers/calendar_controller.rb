@@ -1,5 +1,5 @@
 
-require 'ruby-debug'
+#require 'ruby-debug'
 
 class CalendarController < ApplicationController
   unloadable
